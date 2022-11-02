@@ -20,12 +20,13 @@ function NhanVien(TK, HoTen, Email, MK, NgayLam, Luong, ChucVu, GioLam) {
     }
   };
   this.tongLuong = function () {
-    if (ChucVu === 1) {
-      return Luong * 3;
-    } else if (ChucVu === 2) {
-      return Luong * 2;
-    } else if (ChucVu === 3) {
-      return Luong;
+    switch (ChucVu) {
+      case "Sếp":
+        return Luong * 3;
+      case "Trưởng phòng":
+        return Luong * 2;
+      case "Nhân viên":
+        return Luong;
     }
   };
 }

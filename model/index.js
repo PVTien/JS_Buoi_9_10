@@ -9,6 +9,10 @@ function validateForm() {
   var tenNV = document.getElementById("name").value;
   var emailNV = document.getElementById("email").value;
   var mkNV = document.getElementById("password").value;
+  var ngayLamNV = document.getElementById("datepicker").value;
+  var luongNV = document.getElementById("luongCB").value;
+  var chucVuNV = document.getElementById("chucvu").value;
+  var gioLamNV = document.getElementById("gioLam").value;
 
   var isValid = true;
 
@@ -19,6 +23,12 @@ function validateForm() {
     kiemTraNhap(mkNV, "tbMatKhau") &&
     ktDoDai(mkNV, "tbMatKhau", 6, 10) &&
     ktMatKhau(mkNV, "tbMatKhau");
+  isValid &= kiemTraNhap(ngayLamNV, "tbNgay") && ktNgayLam(ngayLamNV, "tbNgay");
+  isValid &= kiemTraNhap(luongNV, "tbLuongCB") && ktLuong(luongNV, "tbLuongCB");
+  isValid &=
+    kiemTraNhap(chucVuNV, "tbChucVu") && ktChucVu(chucVuNV, "tbChucVu");
+  isValid &=
+    kiemTraNhap(gioLamNV, "tbGiolam") && ktGioLam(gioLamNV, "tbGiolam");
 
   return isValid;
 }
@@ -178,6 +188,9 @@ function layThongTin(taiKhoanNV) {
 
 // cho người dùng sửa trên form, người dùng nhấn nút cập nhật => cập nhật
 function capNhatNV() {
+  var isValid = validateForm();
+  if (!isValid) return;
+
   var tkNV = document.getElementById("tknv").value;
   var tenNV = document.getElementById("name").value;
   var emailNV = document.getElementById("email").value;
@@ -232,9 +245,9 @@ function timNhanVien() {
 
 // VALIDATE
 function kiemTraNhap(value, spanId) {
+  document.getElementById(spanId).style.display = "inline";
   if (value.length === 0) {
     document.getElementById(spanId).innerHTML = "* Bắt buộc nhập";
-    document.getElementById(spanId).style.display = "inline";
     return false;
   }
   document.getElementById(spanId).innerHTML = "";
@@ -281,4 +294,44 @@ function ktMatKhau(value, spanId) {
   document.getElementById(spanId).innerHTML =
     "* Mật khẩu phải chứa ít nhất 1 ký tự số, 1 ký tự in hoa, 1 ký tự đặc biệt";
   return false;
+}
+
+function ktNgayLam(value, spanId) {
+  var pattern = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/g;
+  if (pattern.test(value)) {
+    document.getElementById(spanId).innerHTML = "";
+    return true;
+  }
+  document.getElementById(spanId).innerHTML =
+    "* Ngày không đúng định dạng mm/dd/yyyy";
+  return false;
+}
+
+function ktLuong(value, spanId) {
+  if (value < 1000000 || value > 20000000) {
+    document.getElementById(spanId).innerHTML =
+      "* Mức lương nằm trong khoảng từ 1.000.000 đến 20.000.000";
+    return false;
+  }
+  document.getElementById(spanId).innerHTML = "";
+  return true;
+}
+
+function ktChucVu(value, spanId) {
+  if (value === "Chọn chức vụ") {
+    document.getElementById(spanId).innerHTML = "* Phải chọn chức vụ hợp lệ";
+    return false;
+  }
+  document.getElementById(spanId).innerHTML = "";
+  return true;
+}
+
+function ktGioLam(value, spanId) {
+  if (value < 80 || value > 200) {
+    document.getElementById(spanId).innerHTML =
+      "* Số giờ làm trong tháng từ 80 - 200 giờ";
+    return false;
+  }
+  document.getElementById(spanId).innerHTML = "";
+  return true;
 }

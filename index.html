@@ -133,6 +133,7 @@
                 </div>
                 <div class="col-md-6 text-right">
                   <button
+                    onclick="btnThemNV()"
                     class="btn btn-primary"
                     id="btnThem"
                     data-toggle="modal"
@@ -150,6 +151,7 @@
                 <div class="col">
                   <div class="input-group">
                     <input
+                      oninput="timNhanVien()"
                       type="text"
                       class="form-control"
                       placeholder="Loại nhân viên"
@@ -214,7 +216,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form role="form">
+            <form role="form" id="formQLNV">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -333,10 +335,10 @@
                     ></span>
                   </div>
                   <select class="form-control" id="chucvu">
-                    <option value="1">Chọn chức vụ</option>
-                    <option value="2">Sếp</option>
-                    <option value="3">Trưởng phòng</option>
-                    <option value="4">Nhân viên</option>
+                    <option selected>Chọn chức vụ</option>
+                    <option>Sếp</option>
+                    <option>Trưởng phòng</option>
+                    <option>Nhân viên</option>
                   </select>
                 </div>
 
@@ -372,7 +374,12 @@
             >
               Thêm người dùng
             </button>
-            <button id="btnCapNhat" type="button" class="btn btn-success">
+            <button
+              onclick="capNhatNV()"
+              id="btnCapNhat"
+              type="button"
+              class="btn btn-success"
+            >
               Cập nhật
             </button>
             <button
